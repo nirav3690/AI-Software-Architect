@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime
 import bcrypt
-
+# Database Models — Monar Dudhat Vipulbhai (202512019)
 class User(db.Model):
     __tablename__ = 'users'
 
