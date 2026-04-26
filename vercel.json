@@ -1,5 +1,0 @@
-{
-    "buildCommand": "cd mvp-app && npm install && npm run build",
-    "outputDirectory": "mvp-app/build",
-    "installCommand": "cd mvp-app && npm install"
-}
