@@ -180,26 +180,26 @@ const css = `
 `;
 
 export default function Dashboard() {
-  const [profile, setProfile]     = useState(null);
-  const [stats, setStats]         = useState({ total_ideas: 0, total_plans: 0 });
-  const [loading, setLoading]     = useState(true);
+  const [profile, setProfile] = useState(null);
+  const [stats, setStats] = useState({ total_ideas: 0, total_plans: 0 });
+  const [loading, setLoading] = useState(true);
 
   // Edit name state
   const [editingName, setEditingName] = useState(false);
-  const [newName, setNewName]         = useState("");
-  const [nameMsg, setNameMsg]         = useState({ type: "", text: "" });
-  const [savingName, setSavingName]   = useState(false);
+  const [newName, setNewName] = useState("");
+  const [nameMsg, setNameMsg] = useState({ type: "", text: "" });
+  const [savingName, setSavingName] = useState(false);
 
   // Change password state
-  const [currentPw, setCurrentPw]   = useState("");
-  const [newPw, setNewPw]           = useState("");
-  const [confirmPw, setConfirmPw]   = useState("");
-  const [pwMsg, setPwMsg]           = useState({ type: "", text: "" });
-  const [savingPw, setSavingPw]     = useState(false);
+  const [currentPw, setCurrentPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [pwMsg, setPwMsg] = useState({ type: "", text: "" });
+  const [savingPw, setSavingPw] = useState(false);
 
   // Delete confirmation
   const [showDelete, setShowDelete] = useState(false);
-  const [deletePw, setDeletePw]     = useState("");
+  const [deletePw, setDeletePw] = useState("");
 
   useEffect(() => {
     // Fetch profile from backend
@@ -281,7 +281,7 @@ export default function Dashboard() {
     if (!deletePw) return;
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://127.0.0.1:5000/api/user/delete-account", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || "http://127.0.0.1:5000/api"}/user/delete-account`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ password: deletePw }),

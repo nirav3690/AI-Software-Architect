@@ -133,16 +133,16 @@ const css = `
 `;
 
 export default function Demo() {
-  const [idea, setIdea]           = useState("");
+  const [idea, setIdea] = useState("");
   const [targetUsers, setTargetUsers] = useState("");
-  const [category, setCategory]   = useState("");
-  const [name, setName]           = useState("");
-  const [loading, setLoading]     = useState(false);
-  const [done, setDone]           = useState(false);
-  const [planId, setPlanId]       = useState(null);
+  const [category, setCategory] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
+  const [planId, setPlanId] = useState(null);
   const [downloading, setDownloading] = useState(false);
-  const [apiError, setApiError]   = useState("");
-  const [planData, setPlanData]   = useState(null);
+  const [apiError, setApiError] = useState("");
+  const [planData, setPlanData] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -181,13 +181,13 @@ export default function Demo() {
     setDownloading(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://127.0.0.1:5000/api/pdf/export/${planId}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || "http://127.0.0.1:5000/api"}/pdf/export/${planId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Export failed");
       const blob = await res.blob();
-      const url  = URL.createObjectURL(blob);
-      const a    = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
       a.href = url; a.download = `MVP_Plan_${planId}.pdf`; a.click();
       URL.revokeObjectURL(url);
     } catch {
@@ -267,15 +267,17 @@ export default function Demo() {
                 </div>
                 <button className="fsub" type="submit" disabled={loading}>
                   {loading
-                    ? <div className="loading-dots"><div className="dot-anim"/><div className="dot-anim"/><div className="dot-anim"/></div>
+                    ? <div className="loading-dots"><div className="dot-anim" /><div className="dot-anim" /><div className="dot-anim" /></div>
                     : "✨ Generate MVP Blueprint →"
                   }
                 </button>
                 {done && (
                   <button type="button" onClick={reset}
-                    style={{width:"100%",marginTop:10,background:"none",border:"1.5px solid var(--border)",
-                      borderRadius:12,padding:"12px",fontFamily:"'Plus Jakarta Sans',sans-serif",
-                      fontWeight:600,fontSize:14,cursor:"pointer",color:"var(--soft)"}}>
+                    style={{
+                      width: "100%", marginTop: 10, background: "none", border: "1.5px solid var(--border)",
+                      borderRadius: 12, padding: "12px", fontFamily: "'Plus Jakarta Sans',sans-serif",
+                      fontWeight: 600, fontSize: 14, cursor: "pointer", color: "var(--soft)"
+                    }}>
                     ↺ Try another idea
                   </button>
                 )}
@@ -292,7 +294,7 @@ export default function Demo() {
                   </div>
 
                   {/* Features */}
-                  <div className="out-card show" style={{transitionDelay:"0s"}}>
+                  <div className="out-card show" style={{ transitionDelay: "0s" }}>
                     <div className="out-card-hdr">
                       <div className="out-badge ob1">⚡</div>
                       <div className="out-card-title">Core MVP Features</div>
@@ -300,10 +302,10 @@ export default function Demo() {
                     <div className="out-items">
                       {planData.features?.map((f, i) => (
                         <div key={i} className="out-item">
-                          <div className="out-check" style={{background:"#FF6B6B"}}>✓</div>
+                          <div className="out-check" style={{ background: "#FF6B6B" }}>✓</div>
                           <div>
                             <strong>{f.name}</strong> — {f.description}
-                            <span style={{marginLeft:8,fontSize:11,color:"var(--soft)"}}>({f.priority})</span>
+                            <span style={{ marginLeft: 8, fontSize: 11, color: "var(--soft)" }}>({f.priority})</span>
                           </div>
                         </div>
                       ))}
@@ -311,7 +313,7 @@ export default function Demo() {
                   </div>
 
                   {/* Tech Stack */}
-                  <div className="out-card show" style={{transitionDelay:"0.15s"}}>
+                  <div className="out-card show" style={{ transitionDelay: "0.15s" }}>
                     <div className="out-card-hdr">
                       <div className="out-badge ob2">🔧</div>
                       <div className="out-card-title">Recommended Technology Stack</div>
@@ -324,7 +326,7 @@ export default function Demo() {
                   </div>
 
                   {/* DB Schema */}
-                  <div className="out-card show" style={{transitionDelay:"0.3s"}}>
+                  <div className="out-card show" style={{ transitionDelay: "0.3s" }}>
                     <div className="out-card-hdr">
                       <div className="out-badge ob3">🗄️</div>
                       <div className="out-card-title">Database Schema (Preview)</div>
@@ -333,7 +335,7 @@ export default function Demo() {
                   </div>
 
                   {/* Roadmap */}
-                  <div className="out-card show" style={{transitionDelay:"0.45s"}}>
+                  <div className="out-card show" style={{ transitionDelay: "0.45s" }}>
                     <div className="out-card-hdr">
                       <div className="out-badge ob4">🗺️</div>
                       <div className="out-card-title">Development Roadmap</div>
@@ -341,7 +343,7 @@ export default function Demo() {
                     <div className="out-items">
                       {planData.roadmap?.map((r, i) => (
                         <div key={i} className="out-item">
-                          <div className="out-check" style={{background:"#5B5FEF"}}>✓</div>
+                          <div className="out-check" style={{ background: "#5B5FEF" }}>✓</div>
                           <div><strong>{r.phase}:</strong> {r.deliverables?.join(", ")}</div>
                         </div>
                       ))}
@@ -349,27 +351,31 @@ export default function Demo() {
                   </div>
 
                   {/* Download card */}
-                  <div className="out-card show" style={{transitionDelay:"0.6s",background:"linear-gradient(135deg,var(--coral),var(--indigo))",border:"none"}}>
-                    <div style={{color:"#fff",textAlign:"center",padding:"8px 0"}}>
-                      <div style={{fontSize:24,marginBottom:8}}>📄</div>
-                      <div style={{fontWeight:800,fontSize:17,marginBottom:6}}>Blueprint ready!</div>
-                      <div style={{fontSize:13,opacity:0.85,marginBottom:20}}>Your full MVP plan has been saved to your dashboard.</div>
-                      <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+                  <div className="out-card show" style={{ transitionDelay: "0.6s", background: "linear-gradient(135deg,var(--coral),var(--indigo))", border: "none" }}>
+                    <div style={{ color: "#fff", textAlign: "center", padding: "8px 0" }}>
+                      <div style={{ fontSize: 24, marginBottom: 8 }}>📄</div>
+                      <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 6 }}>Blueprint ready!</div>
+                      <div style={{ fontSize: 13, opacity: 0.85, marginBottom: 20 }}>Your full MVP plan has been saved to your dashboard.</div>
+                      <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
                         <button
                           onClick={downloadPDF}
                           disabled={downloading}
-                          style={{background:"rgba(255,255,255,0.2)",backdropFilter:"blur(8px)",
-                            border:"1.5px solid rgba(255,255,255,0.4)",color:"#fff",
-                            padding:"10px 22px",borderRadius:100,fontFamily:"'Plus Jakarta Sans',sans-serif",
-                            fontWeight:700,fontSize:13,cursor:downloading?"not-allowed":"pointer",
-                            transition:"background .2s",opacity:downloading?0.6:1}}
+                          style={{
+                            background: "rgba(255,255,255,0.2)", backdropFilter: "blur(8px)",
+                            border: "1.5px solid rgba(255,255,255,0.4)", color: "#fff",
+                            padding: "10px 22px", borderRadius: 100, fontFamily: "'Plus Jakarta Sans',sans-serif",
+                            fontWeight: 700, fontSize: 13, cursor: downloading ? "not-allowed" : "pointer",
+                            transition: "background .2s", opacity: downloading ? 0.6 : 1
+                          }}
                         >
                           {downloading ? "Generating PDF..." : "⬇ Download PDF"}
                         </button>
                         <a href="/my-plans"
-                          style={{background:"rgba(255,255,255,0.9)",color:"var(--indigo)",
-                            padding:"10px 22px",borderRadius:100,fontFamily:"'Plus Jakarta Sans',sans-serif",
-                            fontWeight:700,fontSize:13,textDecoration:"none",display:"inline-block"}}
+                          style={{
+                            background: "rgba(255,255,255,0.9)", color: "var(--indigo)",
+                            padding: "10px 22px", borderRadius: 100, fontFamily: "'Plus Jakarta Sans',sans-serif",
+                            fontWeight: 700, fontSize: 13, textDecoration: "none", display: "inline-block"
+                          }}
                         >
                           📋 View All Plans
                         </a>
@@ -381,7 +387,7 @@ export default function Demo() {
                 <div className="empty-box fade-up delay-1">
                   <div className="empty-box-icon">✨</div>
                   <div className="empty-box-text">
-                    Your AI-generated MVP blueprint will appear here.<br/>
+                    Your AI-generated MVP blueprint will appear here.<br />
                     Fill in the form and hit <strong>Generate</strong>!
                   </div>
                 </div>
