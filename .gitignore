@@ -1,0 +1,11 @@
+# Backend
+IdeaToMVP_Backend/.env
+IdeaToMVP_Backend/venv/
+IdeaToMVP_Backend/__pycache__/
+IdeaToMVP_Backend/**/__pycache__/
+IdeaToMVP_Backend/**/*.pyc
+
+# Frontend
+mvp-app/node_modules/
+mvp-app/build/
+mvp-app/.env.local
