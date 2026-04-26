@@ -2,7 +2,7 @@ import json
 import re
 import requests
 from flask import current_app
-
+# AI Prompt Engineering & Groq Integration — Achyut Pathak (202512039)
 
 def build_mvp_prompt(idea_description, target_users, category):
     return f"""You are a senior software architect. Generate a PRECISE, SPECIFIC MVP plan for the idea below.
