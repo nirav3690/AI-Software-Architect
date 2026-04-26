@@ -15,10 +15,7 @@ def create_app():
     jwt.init_app(app)
 
     # Allow React frontend on port 3000 to call the backend
-    CORS(app, resources={r"/api/*": {"origins": [
-    "http://localhost:3000",
-    "https://ai-software-architect.vercel.app"
-]}})
+    CORS(app)
 
     # Register Blueprints
     from app.routes.auth_routes import auth_bp
