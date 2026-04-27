@@ -211,7 +211,7 @@ export default function Login() {
               <div className="auth-logo-icon">🚀</div>
               IdeaToMVP
             </Link>
-            <Link to="/" className="auth-back">← Back to home</Link>
+
 
             <h1 className="auth-title">Welcome back!</h1>
             <p className="auth-sub">Log in to your account to continue generating MVP plans.</p>
