@@ -142,12 +142,12 @@ export default function Register() {
             <div className="auth-visual-bg" />
             <div className="auth-visual-content">
               <div className="auth-visual-icon">✨</div>
-              <h2 className="auth-visual-title">Create your free<br/>account today</h2>
+              <h2 className="auth-visual-title">Create your free<br />account today</h2>
               <p className="auth-visual-desc">
                 Get instant access to AI-powered MVP planning and join thousands of founders building smarter.
               </p>
               <div className="auth-visual-list">
-                {["Free forever — no credit card","Generate unlimited MVP plans","Save and export as PDF","Access to full feature set"].map(t => (
+                {["Free forever — no credit card", "Generate unlimited MVP plans", "Save and export as PDF", "Access to full feature set"].map(t => (
                   <div key={t} className="visual-list-item">
                     <div className="visual-check">✓</div>
                     {t}
@@ -163,7 +163,7 @@ export default function Register() {
               <div className="auth-logo-icon">🚀</div>
               IdeaToMVP
             </Link>
-            <Link to="/" className="auth-back">← Back to home</Link>
+
 
             <h1 className="auth-title">Get started for free</h1>
             <p className="auth-sub">Create your account and start building MVP plans instantly.</p>
